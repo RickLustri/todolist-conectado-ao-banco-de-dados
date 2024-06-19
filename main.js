@@ -11,6 +11,10 @@ function criarJanela() {
     width: 800,
     height: 600,
     icon: `${__dirname}/assets/icon.png`,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
   });
 
   janela.loadFile("./src/index.html");

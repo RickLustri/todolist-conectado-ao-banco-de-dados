@@ -1,16 +1,18 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: #f8f8f8;
+  background: linear-gradient(60deg, #ffffff 0%, #b69cff 100%);
   font-family: "Poppins", sans-serif;
   
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  margin-top: 80px;
+  height: 100vh;
 }
 
 img {
@@ -23,11 +25,11 @@ h1 {
 }
 
 hr {
-  width: 105px;
-  border: 2px solid #e559f9;
-  margin-top: 80px;
+  width: 250px;
+  border: 1px solid #6f4bd8;
+  margin-top: 50px;
   margin-right: auto;
-  margin-bottom: 80px;
+  margin-bottom: 50px;
   margin-left: auto;
 }
 
@@ -66,7 +68,6 @@ button {
   font-size: 16px;
   margin-top: 16px;
   cursor: pointer;
-
   transition: 0.3s;
 }
 
