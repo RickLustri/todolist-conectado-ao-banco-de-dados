@@ -15,7 +15,7 @@
   <img src="../assets/icon.png" />
 
   <!-- Título da aplicação -->
-  <h1>Aplicativo para criação das atividades diárias</h1>
+  <h1>Aplicativo para criação das atividades</h1>
 
   <!-- Traço de divisão -->
   <hr />
@@ -25,6 +25,13 @@
     <h2>O que vou fazer hoje?</h2>
     <input id="input-tarefa" onkeypress="adicionarItemPelaTecla(event)" type="text"
       placeholder="Escreva sua atividade" />
+    <input id="horario" type="time" onkeypress="adicionarItemPelaTecla(event)"/>
+    ,<select name="" id="select" onkeypress="adicionarItemPelaTecla(event)" aria-placeholder="Selecione">
+      <option value="">Selecione</option>
+      <option value="NORMAL">NORMAL</option>
+      <option value="IMPORTANTE">IMPORTANTE</option>
+      <option value="URGENTE">URGENTE</option>
+    </select>
 
     <!-- Botão de adicionar item -->
     <button onclick="adicionarItem()">

@@ -41,13 +41,15 @@ function adicionarItem() {
 
   // Pegando o valor do input
   var elementoInput = document.getElementById("input-tarefa");
+  var elementoHorario = document.getElementById("horario");
 
   // Verificando se o input esta vazio
-  if (elementoInput.value === "") {
+  if (elementoInput.value === "" || elementoHorario.value == "") {
     return;
   }
   // Pegando o valor do input
   var valorInput = elementoInput.value;
+  var valorInputHorario = elementoHorario.value;
 
   // Pegando a tag UL do nosso HTML pelo ID
   var minhaTagUL = document.getElementById("lista-de-tarefas");
@@ -63,13 +65,15 @@ function adicionarItem() {
     "<i onclick='removerItem(event)' class='fa-solid fa-circle-minus'></i>";
 
   // Adicionando um texto para nossa tag li criada
-  criarTagLI.innerHTML = valorInput + tagRemover;
+  criarTagLI.innerHTML = valorInput + " " + valorInputHorario + tagRemover;
 
   // Adicionando a tag li para nossa ul
   minhaTagUL.appendChild(criarTagLI);
 
-
+  // Criando a query para inserir a tarefa
   var query = `INSERT INTO todo_list (item, concluido) VALUES ("${valorInput}", false)`;
+
+  // Executando a query
   conexao.query(query, function (error) {
     if (error) {
       console.log('Erro ao inseririr a tarefa', error);
@@ -80,6 +84,8 @@ function adicionarItem() {
 
   // Limpando o valor do input
   var input = document.getElementById("input-tarefa");
+  var horario = document.getElementById("horario");
+  horario.value = "";
   input.value = "";
 }
 
@@ -136,7 +142,7 @@ function concluirTarefa(event) {
   } else {
     // Criando a query para editar a tarefa caso seja concluída
     query = `UPDATE todo_list SET concluido = true WHERE item = "${minhaTagLi.textContent}"`;
-    
+
     // Executando a query
     conexao.query(query, function (error) {
       if (error) {
