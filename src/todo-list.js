@@ -65,7 +65,7 @@ function adicionarItem() {
     "<i onclick='removerItem(event)' class='fa-solid fa-circle-minus'></i>";
 
   // Adicionando um texto para nossa tag li criada
-  criarTagLI.innerHTML = valorInput + " " + valorInputHorario + tagRemover;
+  criarTagLI.innerHTML = valorInput + valorInputHorario + tagRemover;
 
   // Adicionando a tag li para nossa ul
   minhaTagUL.appendChild(criarTagLI);
