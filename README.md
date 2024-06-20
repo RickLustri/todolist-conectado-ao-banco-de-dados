@@ -25,7 +25,7 @@
 
 ```bash
 # Clonar repositório
-$ git clone https://github.com/rksex/todolist-conectado-ao-banco-de-dados.git
+$ git clone https://github.com/RickLustri/sistema-de-registro-electron.git
 
 # Entrar no repositório
 $ cd todoist-electronjs
