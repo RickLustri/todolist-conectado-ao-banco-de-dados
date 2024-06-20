@@ -35,64 +35,45 @@ function adicionarItemPelaTecla(event) {
   }
 }
 
+// Função responsável por adicionar item
 function adicionarItem() {
   // Invocando a função conectarAoBancoDeDados
   conectarBancoDeDados();
 
   // Pegando o valor do input
   var elementoInput = document.getElementById("input-tarefa");
-  var elementoHorario = document.getElementById("horario");
 
   // Verificando se o input esta vazio
-  if (elementoInput.value === "" || elementoHorario.value == "") {
+  if (elementoInput.value === "") {
     return;
   }
   // Pegando o valor do input
   var valorInput = elementoInput.value;
-  var valorInputHorario = elementoHorario.value;
-
-  // Pegando a tag UL do nosso HTML pelo ID
-  var minhaTagUL = document.getElementById("lista-de-tarefas");
-
-  // Criando tag LI com JavaScript
-  var criarTagLI = document.createElement("li");
-
-  // Adicionando um evento de click para a tag <li>
-  criarTagLI.addEventListener("click", concluirTarefa);
-
-  // Criando uma tag em negrito
-  var tagRemover =
-    "<i onclick='removerItem(event)' class='fa-solid fa-circle-minus'></i>";
-
-  // Adicionando um texto para nossa tag li criada
-  criarTagLI.innerHTML = valorInput + valorInputHorario + tagRemover;
-
-  // Adicionando a tag li para nossa ul
-  minhaTagUL.appendChild(criarTagLI);
 
   // Criando a query para inserir a tarefa
   var query = `INSERT INTO todo_list (item, concluido) VALUES ("${valorInput}", false)`;
 
   // Executando a query
-  conexao.query(query, function (error) {
+  conexao.query(query, function (error, resultado) {
     if (error) {
       console.log('Erro ao inseririr a tarefa', error);
     } else {
       console.log('Tarefa inserida com sucesso!');
+
+      // Chamar a função responsável por criar elemento LI
+      criarElementLi(valorInput, resultado.insertId);
     }
+    console.log(resultado)
+
   })
 
   // Limpando o valor do input
   var input = document.getElementById("input-tarefa");
-  var horario = document.getElementById("horario");
-  horario.value = "";
   input.value = "";
 }
 
 // Função responsável por remover item
 function removerItem(event) {
-  // Invocando a função carregarTarefasDoBancoDeDados
-  carregarTarefasDoBancoDeDados();
 
   // Pegando tag <i> dentro do nosso event
   var meuIcone = event.target;
@@ -103,15 +84,13 @@ function removerItem(event) {
   // Excluindo a tag <li> com a função remove()
   minhaLi.remove();
 
-  // Criando a query para remover a tarefa e usando textContent para pegar o valor
-  var query = `DELETE FROM todo_list WHERE item = "${minhaLi.textContent}"`;
+  // Criando a query para remover a tarefa e usando o id
+  var query = `DELETE FROM todo_list WHERE id = "${minhaLi.id}"`;
 
   // Executando a query
   conexao.query(query, function (error) {
     if (error) {
       console.log('Erro ao remover a tarefa', error);
-    } else {
-      console.log('Tarefa removida com sucesso!');
     }
   })
 }
@@ -131,8 +110,6 @@ function concluirTarefa(event) {
     conexao.query(query, function (error) {
       if (error) {
         console.log('Erro ao concluir a tarefa', error);
-      } else {
-        console.log('Tarefa concluída com sucesso!');
       }
     })
 
@@ -147,8 +124,6 @@ function concluirTarefa(event) {
     conexao.query(query, function (error) {
       if (error) {
         console.log('Erro ao concluir a tarefa', error);
-      } else {
-        console.log('Tarefa concluída com sucesso!');
       }
     })
 
@@ -159,7 +134,6 @@ function concluirTarefa(event) {
 
 // Função responsável por carregar as tarefas
 function carregarTarefasDoBancoDeDados() {
-
   // Invocando a função conectarBancoDeDados
   conectarBancoDeDados()
 
@@ -170,17 +144,40 @@ function carregarTarefasDoBancoDeDados() {
   conexao.query(query, function (error, resultado) {
     if (error) {
       console.log("Erro ao selecionar as tarefas:", error);
-    } else {
-      console.log("Tarefas selecionadas com sucesso!");
     }
 
     // Percorrendo o resultado
     resultado.forEach(function (resultado) {
+
+      // Invocando a função criarElementLi
+      criarElementLi(resultado.item, resultado.id)
+
       console.log(resultado)
 
     })
-  });
-}
+  })
+};
 
-// Invocando a função carregarTarefasDoBancoDeDados
+// Função responsável por criar elemento <li>
+function criarElementLi(item, id) {
+  // Pegando a tag UL do nosso HTML pelo ID
+  var minhaTagUL = document.getElementById("lista-de-tarefas");
+
+  // Criando tag LI com JavaScript
+  var criarTagLI = document.createElement("li");
+  criarTagLI.id = id
+
+  // Adicionando um evento de click para a tag <li>
+  criarTagLI.addEventListener("click", concluirTarefa);
+
+  // Criando a tag <i> com JavaScript
+  var tagRemover = "<i onclick='removerItem(event)' class='fa-solid fa-circle-minus'></i>";
+
+  // Adicionando um texto para nossa tag li criada
+  criarTagLI.innerHTML = item + tagRemover;
+
+  // Adicionando a tag li para nossa ul
+  minhaTagUL.appendChild(criarTagLI);
+};
+
 carregarTarefasDoBancoDeDados();
