@@ -31,7 +31,7 @@
 $ git clone https://github.com/RickLustri/sistema-de-registro-electron.git
 
 # Entrar no repositório
-$ cd todoist-electronjs
+$ cd sistema-de-registro-electron
 
 # Instalar dependências
 $ npm install
