@@ -20,6 +20,9 @@
 <li>
   <a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript">JavaScript</a>
 </li>
+<li>
+  <a>MySQL2</a>
+</li>
 
 <h3>Como rodar o projeto</h3>
 
